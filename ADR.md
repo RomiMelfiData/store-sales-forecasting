@@ -178,6 +178,97 @@ Se documenta la estructura completa en el README para que sea visible desde el p
 
 ---
 
+## ADR-008: Conversión de la columna `date` a datetime
+
+**Decisión:** Convertir la columna `date` de tipo string a datetime con `pd.to_datetime()`.
+
+**Razonamiento:**
+Al inspeccionar el dataset se detectó que la columna `date` estaba almacenada como string.
+Para trabajar con series temporales es imprescindible que Python reconozca la columna como
+fecha real, ya que permite:
+- Ordenar cronológicamente los registros
+- Extraer componentes temporales (día de semana, mes, año)
+- Calcular diferencias entre fechas
+- Resamplear la serie a distintas frecuencias
+
+Sin esta conversión, ninguna operación temporal sería posible.
+
+**Trade-off aceptado:**
+Ninguno — es una corrección obligatoria sin alternativa válida.
+
+---
+
+## ADR-009: Tratamiento de valores nulos en el precio del petróleo
+
+**Decisión:** Interpolar linealmente los 43 valores nulos en la columna `dcoilwtico`.
+
+**Razonamiento:**
+Los 43 valores nulos corresponden a fines de semana y feriados, días en que los mercados
+financieros no operan y por lo tanto no registran precio. Se evaluaron tres opciones:
+
+- **Eliminar filas:** no resuelve el problema porque al hacer el merge con `train`,
+  los días de fin de semana seguirían sin precio de petróleo. Solo elimina filas
+  que técnicamente no existían.
+- **Rellenar con el promedio global:** introduce un valor artificial que no respeta
+  la continuidad temporal del precio. Un promedio de 4 años no representa
+  el precio de un día específico.
+- **Interpolación lineal:** estima el valor faltante basándose en los días
+  anteriores y posteriores. Es la solución estándar en series temporales financieras
+  porque el precio del petróleo tiene continuidad temporal — no cambia abruptamente
+  entre un viernes y un lunes.
+
+Se eligió interpolación porque respeta la naturaleza continua de los datos financieros
+y es la práctica más utilizada en proyectos de Data Science con variables macroeconómicas.
+
+**Trade-off aceptado:**
+La interpolación asume que el precio varía linealmente entre dos puntos conocidos,
+lo cual es una simplificación. En períodos de alta volatilidad podría no ser precisa.
+Se acepta esta limitación dado que los nulos son fines de semana — períodos naturalmente
+cortos de 1 a 2 días.
+
+---
+
+## ADR-010: Tratamiento de registros con ventas = 0
+
+**Decisión:** Mantener los registros con ventas = 0 en el dataset.
+
+**Razonamiento:**
+El 31.3% de los registros tiene ventas igual a cero. Estos registros son legítimos
+y representan combinaciones reales de tienda-producto-día donde no hubo ventas por:
+- Feriados nacionales donde las tiendas cierran
+- Productos no disponibles en determinadas tiendas
+- Días de baja demanda para ciertas categorías
+
+Eliminarlos distorsionaría el modelo, ya que le impediría aprender que ciertos días
+o productos tienen ventas nulas de forma sistemática. Predecir correctamente un cero
+es tan importante como predecir correctamente un valor alto.
+
+**Trade-off aceptado:**
+Mantener los ceros puede afectar el cálculo del MAPE (división por cero).
+Se documentó en ADR-004 que se aplicará SMAPE como alternativa cuando corresponda.
+
+---
+
+## ADR-011: Inclusión del precio del petróleo como variable externa
+
+**Decisión:** Incluir `dcoilwtico` como variable externa en el modelo XGBoost.
+
+**Razonamiento:**
+Ecuador es una economía fuertemente dependiente del petróleo. El análisis temporal
+mostró una caída histórica del precio entre 2014 y 2015 (de ~100 USD a ~45 USD),
+lo que generó una contracción económica que impactó directamente en el consumo.
+
+Esta variable captura un tipo de variación que los modelos de series temporales puras
+(SARIMA, Prophet) no pueden explicar — cambios estructurales en el poder adquisitivo
+de la población que no responden a patrones estacionales sino a contexto macroeconómico.
+
+**Trade-off aceptado:**
+Esta variable es específica del contexto ecuatoriano. En un proyecto para Argentina
+u otro país, habría que evaluar qué variable macroeconómica local tiene mayor
+correlación con el consumo (tipo de cambio, inflación, etc.).
+
+---
+
 ## Limitaciones Conocidas del Proyecto
 
 1. El dataset corresponde a Ecuador — los patrones culturales y de consumo difieren de Argentina.
