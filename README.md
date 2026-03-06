@@ -1,4 +1,4 @@
-# 🛒 Store Sales — Demand Forecasting
+#Store Sales — Demand Forecasting
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)
 ![Pandas](https://img.shields.io/badge/Pandas-2.x-150458?logo=pandas)
