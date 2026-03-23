@@ -37,6 +37,15 @@ mientras que la diferencia en MAPE es de apenas 0.12% — irrelevante para el ne
 Un RMSE más bajo significa menos errores grandes, lo cual es crítico para minimizar
 costos de overstock y stockout.
 
+### 🏆 Kaggle Submission
+
+Submission oficial a la competencia [Store Sales - Time Series Forecasting](https://www.kaggle.com/competitions/store-sales-time-series-forecasting):
+
+| Métrica | Score |
+|---|---|
+| **RMSLE** | ⏳ pendiente |
+
+📓 [Ver notebook de submission](notebooks/07_kaggle_submission_prophet.ipynb)
 ---
 
 ### 🔍 Hallazgos Clave del EDA
@@ -187,6 +196,15 @@ while the MAPE difference is only 0.12% — negligible from a business perspecti
 A lower RMSE means fewer large errors, which is critical for minimizing overstock
 and stockout costs.
 
+### 🏆 Kaggle Submission
+
+Official submission to the [Store Sales - Time Series Forecasting](https://www.kaggle.com/competitions/store-sales-time-series-forecasting) competition:
+
+| Metric | Score |
+|---|---|
+| **RMSLE** | ⏳ pending |
+
+📓 [View submission notebook](notebooks/07_kaggle_submission_prophet.ipynb)
 ---
 
 ### ⚙️ How to reproduce
