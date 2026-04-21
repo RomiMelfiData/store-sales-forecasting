@@ -1,6 +1,6 @@
 # Architecture Decision Records (ADR)
 ## Proyecto: Sales Demand Forecasting — End-to-End
-**Autor:** [Tu nombre]
+**Autor:** Marcela Romina Melfi
 **Fecha:** Marzo 2026
 **Estado:** En desarrollo
 
