@@ -1,8 +1,8 @@
-# Architecture Decision Records (ADR)
+# Registro de Decisiones de Arquitectura (ADR)
 ## Proyecto: Sales Demand Forecasting — End-to-End
 **Autor:** Marcela Romina Melfi
 **Fecha:** Marzo 2026
-**Estado:** En desarrollo
+**Estado:** Terminado
 
 ---
 
