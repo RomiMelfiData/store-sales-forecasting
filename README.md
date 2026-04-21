@@ -43,7 +43,7 @@ Submission oficial a la competencia [Store Sales - Time Series Forecasting](http
 
 | Métrica | Score |
 |---|---|
-| **RMSLE** | ⏳ pendiente |
+| **RMSLE** | **RMSLE** | En proceso de submission |
 
 📓 [Ver notebook de submission](notebooks/07_kaggle_submission_prophet.ipynb)
 ---
@@ -102,7 +102,7 @@ store-sales-forecasting/
 
 **1. Clonar el repositorio**
 ```bash
-git clone https://github.com/TU_USUARIO/store-sales-forecasting.git
+git clone https://github.com/RomiMelfiData/store-sales-forecasting.git
 cd store-sales-forecasting
 ```
 
@@ -202,7 +202,7 @@ Official submission to the [Store Sales - Time Series Forecasting](https://www.k
 
 | Metric | Score |
 |---|---|
-| **RMSLE** | ⏳ pending |
+| **RMSLE** | **RMSLE** | En proceso de submission |
 
 📓 [View submission notebook](notebooks/07_kaggle_submission_prophet.ipynb)
 ---
@@ -210,7 +210,7 @@ Official submission to the [Store Sales - Time Series Forecasting](https://www.k
 ### ⚙️ How to reproduce
 
 ```bash
-git clone https://github.com/TU_USUARIO/store-sales-forecasting.git
+git clone https://github.com/RomiMelfiData/store-sales-forecasting.git
 cd store-sales-forecasting
 python -m venv venv
 source venv/bin/activate      # Mac/Linux
